@@ -1,0 +1,13 @@
+# Зависимости и сборка
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Конфигурация окружения
+.env
+.env.local
+
+# Локальные IDE/OS-файлы
+.vscode/
+.DS_Store
