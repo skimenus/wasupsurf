@@ -1,0 +1,21 @@
+/* Hero */
+.hero-section {
+  background: url('/images/hero-bg.jpg') center/cover no-repeat;
+  color: #fff;
+  padding: 120px 0;
+  text-align: center;
+}
+
+.hero-section .btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+/* Карточки локаций */
+.card {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform .2s;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
