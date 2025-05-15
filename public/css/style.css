@@ -94,6 +94,11 @@
   height: 30px;
 }
 
+/* Testimonials slider arrows */
+.testimonials + .text-center .btn {
+  cursor: pointer;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .hero-section .display-4 {
