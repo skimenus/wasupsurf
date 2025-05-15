@@ -76,7 +76,7 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  z-index: 1000;
+  z-index: 9999;
 }
 .chat-widget a {
   display: flex;
@@ -88,10 +88,6 @@
   background-color: #0088cc;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   text-decoration: none;
-}
-.chat-widget a img {
-  width: 30px;
-  height: 30px;
 }
 
 /* Testimonials slider arrows */

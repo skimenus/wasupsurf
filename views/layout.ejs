@@ -1,36 +1,77 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>WaSUP Surf – Аренда SUP-бордов</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="/css/style.css" rel="stylesheet" />
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-
-  <!-- Telegram Web App API -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Основные стили -->
+  <link href="/css/style.css" rel="stylesheet">
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    rel="stylesheet"
+  >
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top"> … </nav>
-  <%- body %>
-  <footer class="bg-dark text-white mt-5 py-3"> … </footer>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <i class="bi bi-house-door-fill me-1"></i>Главная
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/about">
+              <i class="bi bi-info-circle-fill me-1"></i>О нас
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/locations">
+              <i class="bi bi-geo-alt-fill me-1"></i>Локации
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/rental">
+              <i class="bi bi-cart-fill me-1"></i>Аренда
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/bookings">
+              <i class="bi bi-calendar-check-fill me-1"></i>Бронирования
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-  <!-- Сторонние библиотеки -->
+  <%- body %>
+
+  <footer class="bg-dark text-white mt-5 py-3">
+    <div class="container text-center">
+      <p>&copy; 2024 WaSUP Surf. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <!-- Скрипты -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/rellax@1.12.1/rellax.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://unpkg.com/siema@1.5.1/dist/siema.min.js"></script>
-
-  <!-- Telegram Web App init -->
-  <script>
-    if (window.Telegram.WebApp) {
-      const WebApp = window.Telegram.WebApp;
-      WebApp.expand();  // разворачиваем на весь экран
-    }
-  </script>
-
-  <!-- Ваш основной скрипт -->
   <script src="/js/main.js"></script>
+
+  <!-- Telegram Chat Widget Button -->
+  <div class="chat-widget">
+    <a href="https://t.me/MySupBot" target="_blank" rel="noopener">
+      <i class="bi bi-telegram" style="font-size: 2rem; color: #fff;"></i>
+    </a>
+  </div>
 </body>
 </html>
