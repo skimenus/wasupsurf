@@ -1,34 +1,62 @@
 // admin_bot.js
+
 require('dotenv').config();
 const { Telegraf } = require('telegraf');
-const db = require('./db');
+const supabase = require('./lib/supabase');
 
 const bot = new Telegraf(process.env.ADMIN_BOT_TOKEN);
 
-bot.start(ctx => ctx.reply('Привет, админ! Используйте /orders для списка заказов.'));
+bot.start(ctx =>
+  ctx.reply('Привет, админ! Используйте /orders для просмотра списка заказов.')
+);
 
 bot.command('orders', async ctx => {
-  const { rows } = await db.query(`
-    select o.id, u.user_id, p.name, o.quantity, o.status, o.created_at
-    from orders o
-    join products p on o.product_id = p.id
-    order by o.created_at desc
-    limit 20
-  `);
-  if (!rows.length) return ctx.reply('Нет заказов.');
-  const msgs = rows.map(o =>
-    `#${o.id} ${o.name} x${o.quantity}\nСтатус: ${o.status}\nДата: ${o.created_at.toISOString()}\n`
+  // Получаем последние 20 заказов с именем продукта из таблицы products
+  const { data: orders, error } = await supabase
+    .from('orders')
+    .select(`id, quantity, status, created_at, product:products(name)`)
+    .order('created_at', { ascending: false })
+    .limit(20);
+
+  if (error) {
+    console.error('Error fetching orders:', error);
+    return ctx.reply('Ошибка при загрузке заказов.');
+  }
+  if (!orders.length) {
+    return ctx.reply('Нет заказов.');
+  }
+
+  const msgs = orders.map(o =>
+    `#${o.id} ${o.product.name} x${o.quantity}\n` +
+    `Статус: ${o.status}\n` +
+    `Дата: ${new Date(o.created_at).toLocaleString()}\n`
   );
   ctx.reply(msgs.join('\n—\n'));
 });
 
-// Команда для обновления статуса: /set 5 processing
 bot.command('set', async ctx => {
-  const args = ctx.message.text.split(' ');
-  if (args.length !== 3) return ctx.reply('Используйте: /set <id> <status>');
+  const args = ctx.message.text.trim().split(/\s+/);
+  if (args.length !== 3) {
+    return ctx.reply('Используйте: /set <id> <status>');
+  }
   const [ , id, status ] = args;
-  await db.query('update orders set status=$2 where id=$1', [id, status]);
-  ctx.reply(`Заказ #${id} переведён в статус "${status}".`);
+  const { error } = await supabase
+    .from('orders')
+    .update({ status })
+    .eq('id', Number(id));
+
+  if (error) {
+    console.error('Error updating order status:', error);
+    return ctx.reply('Не удалось обновить статус заказа.');
+  }
+  ctx.reply(`Заказ #${id} переведён в статус «${status}».`);
 });
 
-bot.launch();
+bot.launch()
+  .then(() => console.log('Admin bot started'))
+  .catch(console.error);
+
+process.once('SIGINT', () => bot.stop('SIGINT'));
+process.once('SIGTERM', () => bot.stop('SIGTERM'));
+
+module.exports = {}; // экспорт не нужен, всё обрабатывается внутри этого файла
