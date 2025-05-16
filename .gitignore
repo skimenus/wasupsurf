@@ -7,7 +7,15 @@ yarn-error.log
 # Конфигурация окружения
 .env
 .env.local
+# реальные переменные — не пушить
+.env
+
+
+# бэкапы БД
+backup_*.sql.gz
+
 
 # Локальные IDE/OS-файлы
 .vscode/
 .DS_Store
+.bot
