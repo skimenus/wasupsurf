@@ -19,3 +19,4 @@ backup_*.sql.gz
 .vscode/
 .DS_Store
 .bot
+backup_*.sql.gz
